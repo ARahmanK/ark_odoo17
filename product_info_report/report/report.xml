@@ -28,7 +28,7 @@
                                             </div>
                                             <div class="row m-2 text-center justify-content-center align-items-center d-flex"
                                                  style="">
-<!--                                                <div class="col-1"></div>-->
+                                                <!--                                                <div class="col-1"></div>-->
                                                 <div class="col-4" style="border:1px solid #f5b642;">
                                                     <span>
                                                         <strong>
@@ -65,10 +65,10 @@
                                                         </strong>
                                                     </span>
                                                 </div>
-<!--                                                <div class="col-1"></div>-->
+                                                <!--                                                <div class="col-1"></div>-->
                                             </div>
                                             <div class="row m-2 text-center">
-<!--                                                <div class="col-1"/>-->
+                                                <!--                                                <div class="col-1"/>-->
                                                 <div class="col-6" style="border:1px solid #f5b642;">
                                                     <span t-field="product_id.name"/>
                                                 </div>
@@ -91,7 +91,7 @@
                                                         <hr style="height: 5pt; margin-top:2pt; margin-bottom: 1pt; background-color: #135730;"/>
                                                     </div>
                                                 </div>
-<!--                                                <div class="col-1"/>-->
+                                                <!--                                                <div class="col-1"/>-->
                                             </div>
                                         </div>
 
@@ -149,59 +149,85 @@
 
     <template id="custom_external_layout_standard">
         <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
-            <div class="row">
-                <div t-attf-class="col-4 #{'' if report_type != 'html' else 'col-md-4 col-xs-3'}"
-                     name="company_address">
-                    <ul class="list-unstyled" style="font-size: 12px; height: 20px widget: 10px"
-                        name="company_address_list">
-                        <li t-if="company.is_company_details_empty">
-                            <div style="font-weight: bold; font-size: 30px;" t-field="company.name"/>
-                            <span t-field="company.partner_id"
-                                  t-options='{"widget": "contact", "fields": ["address","email","website"], "no_marker": true}'>
-
-                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
-                                    <strong>Company address block</strong>
-                                    <div>Contains the company address.</div>
-                                </div>
-                            </span>
-                        </li>
-
-                        <li t-else="">
-                            <span t-field="company.company_details">
-                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">
-                                    <strong>Company details block</strong>
-                                    <div>Contains the company details.</div>
-                                </div>
-                            </span>
-                        </li>
-                        <li t-if="not forced_vat"/>
-                        <li t-else="">
-                            <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
-                            <span t-esc="forced_vat">US12345671</span>
-                        </li>
-                    </ul>
+            <div class="row mx-4" style="">
+                <div class="col-6 text-left">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)"
+                         style="max-height: 130pt;"
+                         alt="Logo"/>
                 </div>
+                <div class="col-6 text-right p-1" style="font-size: 22px;text-align:right; align-items:right;">
+                    <!--                        <span t-field="company.company_details">-->
+                    <!--                        </span>-->
+                    <strong>
+                        <span t-field="company.name"/>
+                    </strong>
+                    <br/>
+                    <span t-field="company.street"/>, <span t-field="company.city"/>, <span t-field="company.state_id"/>, <span t-field="company.zip"/>, <span t-field="company.country_id.code"/>
+                    <br/>
+                    <br/>
+                    <strong>
+                        <span>
+                            <span t-field="company.phone"/>
+                            |
+                            <span t-field="company.email"/>
+                            |
+                            <br/>
+                            <span t-field="company.website"/>
+                        </span>
+                    </strong>
+                </div>
+                <!--                <div t-attf-class="col-4 #{'' if report_type != 'html' else 'col-md-4 col-xs-3'}"-->
+                <!--                     name="company_address">-->
+                <!--                    <ul class="list-unstyled" style="font-size: 12px; height: 20px widget: 10px"-->
+                <!--                        name="company_address_list">-->
+                <!--                        <li t-if="company.is_company_details_empty">-->
+                <!--                            <div style="font-weight: bold; font-size: 30px;" t-field="company.name"/>-->
+                <!--                            <span t-field="company.partner_id"-->
+                <!--                                  t-options='{"widget": "contact", "fields": ["address","email","website"], "no_marker": true}'>-->
+
+                <!--                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">-->
+                <!--                                    <strong>Company address block</strong>-->
+                <!--                                    <div>Contains the company address.</div>-->
+                <!--                                </div>-->
+                <!--                            </span>-->
+                <!--                        </li>-->
+
+                <!--                        <li t-else="">-->
+                <!--                            <span t-field="company.company_details">-->
+                <!--                                <div class="bg-light border-1 rounded h-100 d-flex flex-column align-items-center justify-content-center p-4 w-100 opacity-75 text-muted text-center">-->
+                <!--                                    <strong>Company details block</strong>-->
+                <!--                                    <div>Contains the company details.</div>-->
+                <!--                                </div>-->
+                <!--                            </span>-->
+                <!--                        </li>-->
+                <!--                        <li t-if="not forced_vat"/>-->
+                <!--                        <li t-else="">-->
+                <!--                            <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:-->
+                <!--                            <span t-esc="forced_vat">US12345671</span>-->
+                <!--                        </li>-->
+                <!--                    </ul>-->
+                <!--                </div>-->
                 <!--                <div t-attf-class="col-4 text-center #{'' if report_type != 'html' else 'col col-md-4'}">-->
                 <!--                    <img class="img-fluid" t-if="company.logo" t-att-src="image_data_uri(company.logo)"-->
                 <!--                         style="max-height: 150px; max-width: 150px; width:100%;" alt="Logo"/>-->
                 <!--                </div>-->
-                <div t-attf-class="col-4 text-start #{'' if report_type != 'html' else 'col col-md-4'}">
-                    <!--                    <strong style="font-weight: bold; font-size: 30px;">-->
-                    <!--                        <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice</span>-->
-                    <!--                        <span t-elif="o.state in ['draft','sent']">Quotation</span>-->
-                    <!--                        <span t-else="">Order</span>-->
-                    <!--                    </strong>-->
-                    <!--                    <span t-field="o.name">SO0000</span>-->
-                    <br/>
-                    <strong>VAT NO:</strong>
-                    <span t-field="company.vat"/>
-                    <br/>
-                    <!--                    <div style="margin_right: 200px; margin-top: 30px;">-->
-                    <!--                        <strong>Sales Rep:</strong>-->
-                    <!--                        <span t-field="o.user_id"/>-->
-                    <!--                    </div>-->
+                <!--                <div t-attf-class="col-4 text-start #{'' if report_type != 'html' else 'col col-md-4'}">-->
+                <!--                    <strong style="font-weight: bold; font-size: 30px;">-->
+                <!--                        <span t-if="env.context.get('proforma', False) or is_pro_forma">Pro-Forma Invoice</span>-->
+                <!--                        <span t-elif="o.state in ['draft','sent']">Quotation</span>-->
+                <!--                        <span t-else="">Order</span>-->
+                <!--                    </strong>-->
+                <!--                    <span t-field="o.name">SO0000</span>-->
+                <!--                    <br/>-->
+                <!--                    <strong>VAT NO:</strong>-->
+                <!--                    <span t-field="company.vat"/>-->
+                <!--                    <br/>-->
+                <!--                    <div style="margin_right: 200px; margin-top: 30px;">-->
+                <!--                        <strong>Sales Rep:</strong>-->
+                <!--                        <span t-field="o.user_id"/>-->
+                <!--                    </div>-->
 
-                </div>
+                <!--                </div>-->
 
             </div>
         </div>
@@ -215,74 +241,90 @@
             </div>
             <t t-out="0"/>
         </div>
-
         <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">
-            <div t-attf-style="border: 1px solid black;padding: 0px 5px; font-size:12px;#{'height: 70px;' if report_type != 'html' else ''}">
-                <div class="row">
-                    <div t-attf-class="#{'col-3' if report_type != 'html' else 'col col-md-3 font-size: 10px;'}">
-                        <div style="margin-top: 2px" t-field="company.name"/>
-                        <div style="margin-top: 2px" t-field="company.partner_id.bank_ids.bank_name"/>
-                        <div>Sort code:
-                            <span t-field="company.partner_id.bank_ids.bank_id.bic"/>
-                        </div>
-                        <div>Account Number:
-                            <span t-field="company.partner_id.bank_ids.acc_number"/>
-                        </div>
-                    </div>
-                    <!--                    <div t-attf-class="#{'col-5' if report_type != 'html' else 'col col-md-5 font-size: 10px;'}">-->
-                    <!--                        <div class="row">-->
-                    <!--                            <div t-attf-class="#{'col-8' if report_type != 'html' else 'col col-md-12'}">-->
-                    <!--                                <p style="margin-bottom:10px">-->
-                    <!--                                    <input type="checkbox"/>&amp;nbsp;Cash:-->
-                    <!--                                    <span t-esc="o.currency_id.symbol"/>-->
-                    <!--                                    <t t-if="report_type != 'html'">____________________________</t>-->
-                    <!--                                    <t t-else="">__________________</t>-->
-                    <!--                                </p>-->
-                    <!--                                <p style="margin-bottom:10px">-->
-                    <!--                                    <input type="checkbox"/>&amp;nbsp;Cheque:-->
-                    <!--                                    <span t-esc="o.currency_id.symbol"/>-->
-                    <!--                                    <t t-if="report_type != 'html'">_________________________</t>-->
-                    <!--                                    <t t-else="">__________________</t>-->
-                    <!--                                </p>-->
-                    <!--                                <p style="margin-bottom:10px" t-if="report_type == 'html'">-->
-                    <!--                                    <input type="checkbox"/>-->
-                    <!--                                    No Payment:-->
-                    <!--                                </p>-->
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4">
+                    <div t-field="company.report_footer"/>
+                </ul>
 
-                    <!--                            </div>-->
-                    <!--                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'd-none'}">-->
-                    <!--                                <input type="checkbox"/>-->
-                    <!--                                No Payment:-->
-                    <!--                            </div>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col col-md-4 font-size: 10px;'}">
-                        <p>Customer Name Sign:
-                            <t t-if="report_type != 'html'">_______________________</t>
-                            <t t-else="">_____________</t>
-                        </p>
-                        <p>Driver Name Sign:
-                            <t t-if="report_type != 'html'">___________________________</t>
-                            <t t-else="">_________________</t>
-                        </p>
-                    </div>
+                <div t-if="report_type == 'pdf'" class="text-muted">
+                    Page:
+                    <span class="page"/>
+                    /
+                    <span class="topage"/>
+                </div>
+                <div t-if="report_type == 'pdf' and display_name_in_footer" class="text-muted">
+                    <span t-out="o.name">(document name)</span>
                 </div>
             </div>
-            <p style="font-size: 12px;">* Goods remain the property of the seller untill the invoice has been paid in
-                full. No claim will be accepted unless notified in writing at the time of delivery.
-            </p>
-            <p style="font-size: 12px; margin-top: -20px">* The credit term is cash on delivery unless there is a credit
-                agreement.
-            </p>
-            <!--            <div class="col-md-12">-->
-            <!--                <t t-if="company.footer_image">-->
-            <!--                    <img t-att-src="image_data_uri(company.footer_image)" style="height: 80px; width: 100%"/>-->
-            <!--                </t>-->
-            <!--            </div>-->
-            <div class="col-md-12 text-center">
-                <strong>Page</strong>
-                <span style="margin-top:-20px;" class="page"/>
-            </div>
         </div>
+        <!--        <div t-attf-class="footer o_standard_footer o_company_#{company.id}_layout">-->
+        <!--            <div t-attf-style="border: 1px solid black;padding: 0px 5px; font-size:12px;#{'height: 70px;' if report_type != 'html' else ''}">-->
+        <!--                <div class="row">-->
+        <!--                    <div t-attf-class="#{'col-3' if report_type != 'html' else 'col col-md-3 font-size: 10px;'}">-->
+        <!--                        <div style="margin-top: 2px" t-field="company.name"/>-->
+        <!--                        <div style="margin-top: 2px" t-field="company.partner_id.bank_ids.bank_name"/>-->
+        <!--                        <div>Sort code:-->
+        <!--                            <span t-field="company.partner_id.bank_ids.bank_id.bic"/>-->
+        <!--                        </div>-->
+        <!--                        <div>Account Number:-->
+        <!--                            <span t-field="company.partner_id.bank_ids.acc_number"/>-->
+        <!--                        </div>-->
+        <!--                    </div>-->
+        <!--                    &lt;!&ndash;                    <div t-attf-class="#{'col-5' if report_type != 'html' else 'col col-md-5 font-size: 10px;'}">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                        <div class="row">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                            <div t-attf-class="#{'col-8' if report_type != 'html' else 'col col-md-12'}">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                <p style="margin-bottom:10px">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <input type="checkbox"/>&amp;nbsp;Cash:&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <span t-esc="o.currency_id.symbol"/>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <t t-if="report_type != 'html'">____________________________</t>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <t t-else="">__________________</t>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                </p>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                <p style="margin-bottom:10px">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <input type="checkbox"/>&amp;nbsp;Cheque:&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <span t-esc="o.currency_id.symbol"/>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <t t-if="report_type != 'html'">_________________________</t>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <t t-else="">__________________</t>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                </p>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                <p style="margin-bottom:10px" t-if="report_type == 'html'">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    <input type="checkbox"/>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                    No Payment:&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                </p>&ndash;&gt;-->
+
+        <!--                    &lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                            <div t-attf-class="#{'col-4' if report_type != 'html' else 'd-none'}">&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                <input type="checkbox"/>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                                No Payment:&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                            </div>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                        </div>&ndash;&gt;-->
+        <!--                    &lt;!&ndash;                    </div>&ndash;&gt;-->
+        <!--                    <div t-attf-class="#{'col-4' if report_type != 'html' else 'col col-md-4 font-size: 10px;'}">-->
+        <!--                        <p>Customer Name Sign:-->
+        <!--                            <t t-if="report_type != 'html'">_______________________</t>-->
+        <!--                            <t t-else="">_____________</t>-->
+        <!--                        </p>-->
+        <!--                        <p>Driver Name Sign:-->
+        <!--                            <t t-if="report_type != 'html'">___________________________</t>-->
+        <!--                            <t t-else="">_________________</t>-->
+        <!--                        </p>-->
+        <!--                    </div>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <p style="font-size: 12px;">* Goods remain the property of the seller untill the invoice has been paid in-->
+        <!--                full. No claim will be accepted unless notified in writing at the time of delivery.-->
+        <!--            </p>-->
+        <!--            <p style="font-size: 12px; margin-top: -20px">* The credit term is cash on delivery unless there is a credit-->
+        <!--                agreement.-->
+        <!--            </p>-->
+        <!--            &lt;!&ndash;            <div class="col-md-12">&ndash;&gt;-->
+        <!--            &lt;!&ndash;                <t t-if="company.footer_image">&ndash;&gt;-->
+        <!--            &lt;!&ndash;                    <img t-att-src="image_data_uri(company.footer_image)" style="height: 80px; width: 100%"/>&ndash;&gt;-->
+        <!--            &lt;!&ndash;                </t>&ndash;&gt;-->
+        <!--            &lt;!&ndash;            </div>&ndash;&gt;-->
+        <!--            <div class="col-md-12 text-center">-->
+        <!--                <strong>Page</strong>-->
+        <!--                <span style="margin-top:-20px;" class="page"/>-->
+        <!--            </div>-->
+        <!--        </div>-->
     </template>
 </odoo>
