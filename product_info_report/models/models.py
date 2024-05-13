@@ -1,0 +1,15 @@
+# -*- coding: utf-8 -*-
+
+# from odoo import models, fields, api
+#
+#
+# class ProductInfoReport(models.Model):
+#     _name = 'product_info_report.product_info_report'
+#     _description = 'product_info_report.product_info_report'
+#
+#     name = fields.Char()
+#     value = fields.Integer()
+#     value2 = fields.Float(compute="_value_pc", store=True)
+#     description = fields.Text()
+
+
