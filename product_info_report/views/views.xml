@@ -1,7 +1,0 @@
-<odoo>
-    <data>
-        <menuitem name="Product Detailed Report" action="action_product_info_report_wizard"
-                  id="menu_upload_csv_menu_items" sequence="10"
-                  parent="stock.menu_warehouse_report"/>
-    </data>
-</odoo>

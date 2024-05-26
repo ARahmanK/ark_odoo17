@@ -9,10 +9,11 @@
                     <sheet>
                         <group>
                             <group>
-                                <field name="product_categ_id"/>
+                                <field name="is_all_products" widget="boolean_toggle"/>
+                                <field name="category_id" invisible="is_all_products"/>
                             </group>
                             <group>
-                                <field name="product_id"/>
+                                <field name="product_ids" widget="many2many_tags" invisible="is_all_products"/>
                             </group>
                         </group>
                     </sheet>
@@ -41,5 +42,9 @@
             <field name="view_id" ref="view_product_info_report_wizard"/>
             <field name="target">new</field>
         </record>
+
+        <menuitem name="Product Detailed Report" action="action_product_info_report_wizard"
+                  id="menu_upload_csv_menu_items" sequence="10"
+                  parent="stock.menu_warehouse_report"/>
     </data>
 </odoo>

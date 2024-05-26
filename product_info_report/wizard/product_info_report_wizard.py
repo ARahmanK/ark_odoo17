@@ -6,42 +6,38 @@ from odoo.exceptions import ValidationError, UserError
 
 class ProductInfoReportWizard(models.TransientModel):
     _name = 'product.info.report.wizard'
+    _description = 'Product Information Wizard'
 
-    # def default_product_ids(self):
-    #     products = self.env['product.template'].sudo().search([('categ_id', '=', self.product_categ_id.id)])
-    #     if products:
-    #         return [('id', 'in', products.ids)]
-    #     else:
-    #         return [(0, '=', 1)]
-
-    product_categ_id = fields.Many2one(
-        'product.category',
-        string='Product Category'
-    )
-    product_id = fields.Many2one('product.product', string='Product')
-
-    # @api.onchange('product_categ_id', 'product_tmpl_id')
-    # def onchange_product_categ_id(self):
-    #     products = self.env['product.template'].sudo().search([('categ_id', '=', self.product_categ_id.id)])
-    #     if products:
-    #         return {'domain': {'product_tmpl_id': [('categ_id', '=', self.product_categ_id.id)]}}
-    #     else:
-    #         return {'domain': {'product_tmpl_id': []}}
+    is_all_products = fields.Boolean('All Products', default=False)
+    category_id = fields.Many2one('product.category', string='Product Category')
+    product_ids = fields.Many2many('product.product', string='Product')
 
     def action_print_report(self):
-        if not self.product_id and not self.product_categ_id:
-            raise ValidationError('Kindly select Category or a Product!')
-        if self.product_id:
-            products = self.product_id
+        """
+            This function is responsible for generating a report based on the selected product or category.
+            It checks if either a product or a category is selected. If neither is selected, it raises a ValidationError.
+            If a product is selected, it retrieves the product data using the product.product model and stores it in the 'products' variable.
+            If a category is selected, it retrieves the product ids using the product.product model and checks if any products exist for the category.
+            If products exist, it stores the product ids in the 'products' variable and creates a dictionary with the 'products' key and the product ids as the value.
+            If no products exist for the category, it raises a ValidationError.
+            Finally, it returns the report action for the 'product_info_report.action_report_product_detailed_pdf' report with the 'self' record and the 'data' dictionary as parameters.
+        """
+        if self.is_all_products:
             data = {
-                'products': self.env['product.product'].search_read([('id', '=', self.product_id.id)]),
+                'products': self.env['product.product'].search_read([]),
             }
-        elif self.product_categ_id:
-            product_ids = self.env['product.product'].search_read([('categ_id', '=', self.product_categ_id.id)])
+        elif not self.product_ids and not self.category_id:
+            raise ValidationError('Kindly select Category or a Product!')
+
+        elif self.product_ids:
+            data = {
+                'products': self.env['product.product'].search_read([('id', 'in', self.product_ids.ids)]),
+            }
+        elif self.category_id:
+            product_ids = self.env['product.product'].search_read([('categ_id', '=', self.category_id.id)])
             if product_ids:
-                products = product_ids
                 data = {
-                    'products': products,
+                    'products': product_ids,
                 }
             else:
                 raise ValidationError('No Product for this Category!')
