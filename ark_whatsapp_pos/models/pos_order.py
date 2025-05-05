@@ -15,21 +15,21 @@ class PosOrder(models.Model):
 
         # Validate required conditions
         if not self.config_id.whatsapp_enabled:
-            raise UserError(_("WhatsApp integration is not enabled for this POS."))
+            raise UserError("WhatsApp integration is not enabled for this POS.")
         if not self.config_id.receipt_template_id:
-            raise UserError(_("No WhatsApp receipt template configured for this POS."))
+            raise UserError("No WhatsApp receipt template configured for this POS.")
         if not partner.get('whatsapp'):
-            raise UserError(_("Customer has no WhatsApp number configured."))
+            raise UserError("Customer has no WhatsApp number configured.")
 
         # Create receipt attachment
-        filename = f'Receipt-{name}.pdf'  # Changed to PDF for better compatibility
-        receipt_attachment = self.env['ir.attachment'].create({
+        filename = 'Receipt-' + name + '.jpg'
+        receipt = self.env['ir.attachment'].create({
             'name': filename,
             'type': 'binary',
             'datas': ticket_image,
             'res_model': 'pos.order',
-            'res_id': self.id,
-            'mimetype': 'application/pdf',  # Changed to PDF mime type
+            'res_id': self.ids[0],
+            'mimetype': 'image/jpeg',
         })
 
         try:
