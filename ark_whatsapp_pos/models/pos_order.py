@@ -67,13 +67,9 @@ class PosOrder(models.Model):
             })
 
             whatsapp_composer.send_message_wizard()
-
-            # Add log to chatter
-            self.message_post(body=_('Receipt sent via WhatsApp to %s') % partner['whatsapp'])
-
             return {
                 'success': True,
-                'message': _('Receipt successfully sent via WhatsApp')
+                'message': 'Receipt successfully sent via WhatsApp'
             }
 
         except Exception as e:
@@ -81,7 +77,7 @@ class PosOrder(models.Model):
             receipt_attachment.unlink()
             if invoice_attachment:
                 invoice_attachment.unlink()
-            raise UserError(_("Failed to send WhatsApp message: %s") % str(e))
+            raise UserError("Failed to send WhatsApp message: %s") % str(e)
 
     # def action_sent_receipt_on_whatsapp(self, name, partner, ticket_image):
     #     """ Send receipt on whatsapp if whatsapp is enabled and partner has whatsapp number or number is provided."""
