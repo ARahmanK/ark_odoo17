@@ -23,7 +23,7 @@ class PosOrder(models.Model):
 
         # Create receipt attachment
         filename = 'Receipt-' + name + '.jpg'
-        receipt = self.env['ir.attachment'].create({
+        receipt_attachment = self.env['ir.attachment'].create({
             'name': filename,
             'type': 'binary',
             'datas': ticket_image,
