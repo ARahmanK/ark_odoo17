@@ -8,6 +8,7 @@ class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
     pos_whatsapp_enabled = fields.Boolean(related="pos_config_id.whatsapp_enabled", readonly=False)
+    # connector_id = fields.Many2one('acrux.chat.connector', related="pos_config_id.connector_id")
     pos_receipt_template_id = fields.Many2one('mail.template', related="pos_config_id.receipt_template_id", readonly=False)
     pos_invoice_template_id = fields.Many2one('mail.template', related="pos_config_id.invoice_template_id", readonly=False)
 

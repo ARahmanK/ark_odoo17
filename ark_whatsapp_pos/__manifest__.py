@@ -4,7 +4,7 @@
     'name': 'ARK WhatsApp-POS',
     'category': 'WhatsApp',
     'description': """This module integrates POS with WhatsApp""",
-    'depends': ['point_of_sale',],
+    'depends': ['point_of_sale', 'whatsapp_connector'],
     'data': [
         # 'data/whatsapp_template_data.xml',
         'views/res_config_settings_views.xml',

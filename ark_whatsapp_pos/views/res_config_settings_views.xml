@@ -10,6 +10,7 @@
                 <setting id="whatsapp_pos" help="Send receipts Using WhatsApp">
                     <field name="pos_whatsapp_enabled"/>
                     <div class="content-group" invisible="not pos_whatsapp_enabled">
+<!--                        <field name="connector_id"/>-->
                         <div class="row mt16" id="pos_receipt_template_id">
                             <label for="pos_receipt_template_id" class="col-lg-3"/>
                             <field name="pos_receipt_template_id" required="pos_whatsapp_enabled"/>
